@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000;
+  --accent-bg: #070606;
+  --cta: #1eebec;
+  --grad: linear-gradient(102.65deg, #1eebe7 0.97%, #c52bde 154.13%);
+}
+body {
+  background: linear-gradient(107.38deg, var(--bg) 0.55%, #0f0e0e 106.94%);
+}
+.bg-accent {
+  background-color: var(--accent-bg);
+}
+.bg-cta {
+  background-color: var(--cta);
+}
+.bg-grad {
+  background: var(--grad);
+}
+.activeNav-item {
+  background: var(--grad);
+  color: white;
+  border-radius: 50%;
+}
+.dropshadow {
+  box-shadow: "0px 0px 80px 0px #1EEBE740";
+}
+p,
+h1,
+h2,
+h3,
+h4 {
+  color: white;
+}
