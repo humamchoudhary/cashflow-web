@@ -14,15 +14,6 @@ export default function Login() {
   useEffect(() => {
     async function fetchData() {
       if (user) {
-        // const res = await fetch("/api/user", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ user }),
-        // }).then(() => {
-        //   router.push("/dashboard");
-        // });
         dispatch({ type: "SET_USER", payload: user });
         router.push("/dashboard");
       }
@@ -45,8 +36,8 @@ export default function Login() {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            // console.log({ username, password });
-            const response = await fetch({ URL } + "login", {
+            // console.log(`${URL}/login`);
+            const response = await fetch(`${URL}/login`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -54,22 +45,8 @@ export default function Login() {
               body: JSON.stringify({ username: username, password: password }),
             });
             if (response.ok) {
-              // const user = await res.json();
               const userData = await response.json();
               setUser(userData);
-
-              // const res = await fetch("/api/user", {
-              //   method: "POST",
-              //   headers: {
-              //     "Content-Type": "application/json",
-              //   },
-              //   body: JSON.stringify({ user }),
-              // });
-              // console.log(await res.json());
-              console.log("----login");
-              console.log(user);
-
-              // router.push("/dashboard");
             }
           }}
           className="flex flex-col gap-8 justify-center items-center"

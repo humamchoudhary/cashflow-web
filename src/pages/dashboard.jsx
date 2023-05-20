@@ -8,9 +8,33 @@ import LineGraph from "../Components/HomePage/Graph";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { MdRefresh } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { URL } from "../pages/_app";
+import TransferScreen from "../Components/HomePage/TransferMenu";
 
 export default function Dashboard() {
-  const user = useSelector((state) => state.user);
+  const [showTransferScreen, setShowTransferScreen] = useState(false);
+  const [transection, setTransection] = useState({});
+
+  const handleTransferButtonClick = () => {
+    setShowTransferScreen(true);
+    console.log(showTransferScreen);
+  };
+  function handleSetTransection(transfer_data) {
+    setTransection(transfer_data);
+  }
+  const handleCloseTransferScreen = () => {
+    refreshTransactions();
+    setShowTransferScreen(false);
+  };
+  useEffect(() => {
+    console.log(transection);
+  }, [transection]);
+
+  const dispatch = useDispatch();
+
+  const [user, setUser] = useState(useSelector((state) => state.user));
   const [data, setData] = useState({
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -66,11 +90,27 @@ export default function Dashboard() {
       });
     }
   }, [user]);
-
+  const refreshTransactions = async () => {
+    // console.log(`${URL}/login`);
+    const response = await fetch(`${URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: user.username,
+        password: user.password,
+      }),
+    });
+    if (response.ok) {
+      const userData = await response.json();
+      setUser(userData);
+    }
+  };
   return (
     <Layout activePage="home">
       {user && user.username ? (
-        <div className="flex flex-row gap-20 ml-48 mt-8 mr-28">
+        <div className="flex flex-row gap-20 px-28 py-2 mt-8 mr-28">
           <div className="flex flex-col w-full">
             <div className="flex flex-row justify-between ">
               <div className="flex flex-row gap-8 justify-center items-center">
@@ -93,9 +133,16 @@ export default function Dashboard() {
                 <BsCalendarEvent className=" text-7xl text-gray-300 font-thin" />
               </div>
             </div>
-            <h1 className=" mt-4 mb-3 font-semibold text-xl">
+            <h1 className=" mt-4 mb-3 font-semibold text-xl flex flex-row justify-between">
               Transection History
+              <div
+                className="text-white justify-end  flex text-4xl hover:cursor-pointer hover:text-gray-300 duration-150"
+                onClick={refreshTransactions}
+              >
+                <MdRefresh />
+              </div>
             </h1>
+
             <TransectionHistory user={user} />
             <div className="relative bottom-7">
               <h1 className=" mt-7 mb-6 font-semibold text-xl">Statistics</h1>
@@ -106,15 +153,18 @@ export default function Dashboard() {
           </div>
           <div className="w-[846px] bg-accent p-10 rounded-lg">
             <div className="flex flex-row justify-evenly items-center rounded-xl bg-grad py-2 text-white text-4xl">
-              <div className="flex flex-row hover:text-gray-300 duration-300  px-9 py-4">
+              <div
+                className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4"
+                onClick={handleTransferButtonClick}
+              >
                 <BsSend />
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />
-              <div className="flex flex-row hover:text-gray-300 duration-300  px-9 py-4">
+              <div className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4">
                 <AiOutlineScan />
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />
-              <div className="flex flex-row hover:text-gray-300 duration-300  px-9 py-4">
+              <div className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4">
                 <CiWallet />
               </div>
             </div>
@@ -192,6 +242,12 @@ export default function Dashboard() {
           </div>
         </div>
       ) : null}
+      {showTransferScreen && (
+        <TransferScreen
+          onClose={handleCloseTransferScreen}
+          username={user.username}
+        />
+      )}
     </Layout>
   );
 }

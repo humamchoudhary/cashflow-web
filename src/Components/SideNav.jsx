@@ -4,19 +4,21 @@ import { FaExchangeAlt, FaWallet } from "react-icons/fa";
 import { FiHelpCircle, FiLogOut } from "react-icons/fi";
 import { BiSupport } from "react-icons/bi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SideNav = ({ activePage }) => {
-  console.log(activePage);
+  const router = useRouter();
+  // console.log(activePage);
   return (
     <>
-      <div
+      {/* <div
         style={{
           boxShadow: "-100px 0px 201px 5px #1EEBE7",
         }}
         className="fixed w-[90px] h-screen -z-10"
-      ></div>
-      <div className=" px-8 bg-accent h-screen w-max flex flex-col gap-[72px] justify-center items-center fixed left-0 top-0">
-        <div className="text-4xl flex flex-col gap-12">
+      ></div> */}
+      <div className=" px-8 h-screen w-max flex flex-col gap-10 justify-end items-center fixed right-0 bottom-10">
+        {/* <div className="text-4xl flex flex-col gap-12">
           <Link
             href="/"
             className={` text-gray-500  p-3 transition-all duration-200 ${
@@ -72,7 +74,7 @@ const SideNav = ({ activePage }) => {
           >
             <RiSettingsLine />
           </Link>
-        </div>
+        </div> */}
         <div className="text-4xl flex flex-col gap-12">
           <Link
             href="help"
@@ -101,7 +103,13 @@ const SideNav = ({ activePage }) => {
             <RiFeedbackLine />
           </Link>
         </div>
-        <div className="text-4xl flex flex-col gap-12">
+        <div
+          className="text-4xl flex flex-col gap-12"
+          onClick={() => {
+            router.push("/login");
+            // route;
+          }}
+        >
           <FiLogOut className=" text-red-600 hover:text-red-500 transition-all duration-200" />
         </div>
       </div>
