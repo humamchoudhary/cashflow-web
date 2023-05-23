@@ -6,7 +6,9 @@ function Cards({ user }) {
   useEffect(() => {
     console.log(details);
   }, [details]);
-
+  const handleCopyText = (text) => {
+    navigator.clipboard.writeText(text);
+  };
   return (
     <div className=" flex flex-col gap-6">
       <p className="text-xl font-semibold">Cards</p>
@@ -29,6 +31,7 @@ function Cards({ user }) {
               index={0}
               hidden={false}
               setDetails={setDetails}
+              copy={handleCopyText}
               clickable={false}
             />
             <div className="flex w-full flex-col gap-5 justify-start items-start self-start">
@@ -54,8 +57,21 @@ function Cards({ user }) {
               </div>
               <div className="w-full mt-10">
                 <p className=" font-medium mb-2">Monthly Limit</p>
-                <div className="w-full h-1 bg-slate-400 rounded-md">
-                  <div className="w-[200px] h-1 bg-green-500 rounded-md"></div>
+                <div className="w-full h-1 bg-slate-400 rounded-md mb-2">
+                  <div
+                    style={{
+                      width: `${
+                        (details.limits.monthly.spent /
+                          details.limits.monthly.total) *
+                        100
+                      }%`,
+                    }}
+                    className="h-1 bg-green-500 rounded-md"
+                  ></div>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <p>$ {details.limits.monthly.spent}</p>
+                  <p>$ {details.limits.monthly.total}</p>
                 </div>
               </div>
             </div>
@@ -81,13 +97,15 @@ function Cards({ user }) {
 
 export default Cards;
 
-function Card({ data, index, setDetails, clickable, hidden }) {
+function Card({ data, index, setDetails, clickable, copy, hidden }) {
   return (
     <div
       key={index}
       onClick={() => {
         if (clickable) {
           setDetails(data);
+        } else {
+          copy(data.card_number);
         }
       }}
       className="bg-grad flex flex-col w-[314px] h-[181px] hover:cursor-pointer rounded-2xl py-5 px-8  justify-between"
