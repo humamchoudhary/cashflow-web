@@ -12,7 +12,7 @@ import { MdRefresh } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { URL } from "../pages/_app";
 import TransferScreen from "../Components/HomePage/TransferMenu";
-
+import Cards from "../Components/HomePage/Card";
 export default function Dashboard() {
   const [showTransferScreen, setShowTransferScreen] = useState(false);
   const [transection, setTransection] = useState({});
@@ -202,42 +202,14 @@ export default function Dashboard() {
 
               <div className="flex flex-col gap-1">
                 <p className="text-md ">Savings</p>
-                <p className="text-xl font-bold">$ 200</p>
+                <p className="text-xl font-bold">
+                  {user.currency} {user.savings}
+                </p>
               </div>
             </div>
 
-            <div className="mt-16 flex flex-col gap-6">
-              <p className="text-xl font-semibold">Cards</p>
-
-              <div className="bg-grad flex flex-col w-[314px] h-[181px] hover:cursor-pointer rounded-2xl py-5 px-8  justify-between">
-                <p className="flex flex-row justify-end text-2xl font-semibold ">
-                  Visa
-                </p>
-
-                <div className="mt-6 flex flex-row justify-between">
-                  <div
-                    style={{
-                      backgroundColor: "#E5C875",
-                      width: 50,
-                      height: 32,
-                    }}
-                    className=" rounded-md"
-                  />
-                  <AiOutlineWifi className=" rotate-90 text-4xl text-white mr-2" />
-                </div>
-
-                <div className="flex flex-row justify-between items-end ">
-                  <div className="flex flex-col gap-0">
-                    <p className="font-bold text-2xl">xxxx-xxxx-xxxx-xxxx</p>
-                    <p className=" text-lg font-medium">Muhammad Humam</p>
-                  </div>
-                  <p className="text-lg font-medium">xx/xx</p>
-                </div>
-              </div>
-              <div className=" bg-gray-300 bg-opacity-20 hover:bg-opacity-30 duration-300 hover:cursor-pointer flex flex-col w-[314px] h-[181px] rounded-2xl py-5 px-8  justify-center items-center">
-                <AiOutlinePlus className="text-5xl text-white" />
-                <p>Add a Card</p>
-              </div>
+            <div className="mt-16">
+              <Cards user={user} />
             </div>
           </div>
         </div>
