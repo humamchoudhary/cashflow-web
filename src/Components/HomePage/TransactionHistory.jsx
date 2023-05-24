@@ -1,7 +1,7 @@
 import { BsArrowDownLeft, BsArrowUpRight } from "react-icons/bs";
 
-const TransectionHistory = ({ user }) => {
-  if (!user.transection_log || user.transection_log.length === 0) {
+const TransactionHistory = ({ user }) => {
+  if (!user.transaction_log || user.transaction_log.length === 0) {
     return (
       <div className="flex flex-col gap-8 p-10 bg-accent rounded-lg w-full h-full overflow-scroll max-h-[500px] min-h-[500px] mb-8 justify-center items-center">
         <p>No transactions available.</p>;
@@ -10,13 +10,13 @@ const TransectionHistory = ({ user }) => {
   } else {
     return (
       <div className="flex flex-col gap-8 p-10 bg-accent rounded-lg w-full h-full overflow-scroll max-h-[500px] min-h-[500px] mb-8">
-        {user.transection_log.map((transaction, index) => (
+        {user.transaction_log.map((transaction, index) => (
           <div
             key={index}
             className="flex flex-row justify-between items-center bg-white bg-opacity-0 py-3 px-5 hover:bg-opacity-10 duration-200 rounded-md"
           >
             <div className="flex flex-row gap-3 items-center">
-              {transaction.transection === "outgoing" ? (
+              {transaction.transaction === "outgoing" ? (
                 <div className="bg-red-400 p-5 text-2xl rounded-full">
                   <BsArrowUpRight />
                 </div>
@@ -42,4 +42,4 @@ const TransectionHistory = ({ user }) => {
   }
 };
 
-export default TransectionHistory;
+export default TransactionHistory;

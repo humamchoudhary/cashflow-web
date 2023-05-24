@@ -3,7 +3,7 @@ import { AiOutlineScan, AiOutlineWifi, AiOutlinePlus } from "react-icons/ai";
 import { CiWallet } from "react-icons/ci";
 import { BsCalendarEvent, BsSend } from "react-icons/bs";
 import Layout from "../Components/Layout";
-import TransectionHistory from "../Components/HomePage/TransecctionHistory";
+import TransactionHistory from "../Components/HomePage/TransactionHistory";
 import LineGraph from "../Components/HomePage/Graph";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -22,23 +22,23 @@ const TopProgressBar = dynamic(
 
 export default function Dashboard() {
   const [showTransferScreen, setShowTransferScreen] = useState(false);
-  const [transection, setTransection] = useState({});
+  const [transaction, setTransaction] = useState({});
   const [progress, setProgress] = useState(0);
 
   const handleTransferButtonClick = () => {
     setShowTransferScreen(true);
     console.log(showTransferScreen);
   };
-  function handleSetTransection(transfer_data) {
-    setTransection(transfer_data);
+  function handleSetTransaction(transfer_data) {
+    setTransaction(transfer_data);
   }
   const handleCloseTransferScreen = () => {
     refreshTransactions();
     setShowTransferScreen(false);
   };
   useEffect(() => {
-    console.log(transection);
-  }, [transection]);
+    console.log(transaction);
+  }, [transaction]);
 
   const dispatch = useDispatch();
 
@@ -131,9 +131,9 @@ export default function Dashboard() {
                 <RiUser3Line className=" text-8xl bg-grad p-4 rounded-lg text-white" />
 
                 <div className="flex flex-col gap-2">
-                  <p className="font-light text-xl">{user.username}</p>
+                  <p className="font-light text-xl">{user.full_name}</p>
                   <h1 className="font-bold text-3xl">
-                    {user.currency} {user.balance}
+                    {user.currency} {user.useable_bal}
                   </h1>
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function Dashboard() {
               </div>
             </div>
             <h1 className=" mt-4 mb-3 font-semibold text-xl flex flex-row justify-between">
-              Transection History
+              Transaction History
               <div
                 className="text-white justify-end  flex text-4xl hover:cursor-pointer hover:text-gray-300 duration-150"
                 onClick={refreshTransactions}
@@ -157,7 +157,7 @@ export default function Dashboard() {
               </div>
             </h1>
 
-            <TransectionHistory user={user} />
+            <TransactionHistory user={user} />
             <div className="relative bottom-7">
               <h1 className=" mt-7 mb-6 font-semibold text-xl">Statistics</h1>
               <div className="flex flex-col gap-8 p-10 bg-accent rounded-lg">
@@ -200,7 +200,9 @@ export default function Dashboard() {
                 <p className="text-md ">Income</p>
                 <p className="text-xl font-bold">
                   {user.currency}
-                  {user.income.reduce((result, number) => result + number)}
+                  {user.income.length > 0
+                    ? user.income.reduce((result, number) => result + number)
+                    : "0"}
                 </p>
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />
@@ -209,7 +211,9 @@ export default function Dashboard() {
                 <p className="text-md ">Expenses</p>
                 <p className="text-xl font-bold">
                   {user.currency}{" "}
-                  {user.expense.reduce((result, number) => result + number)}
+                  {user.expense.length > 0
+                    ? user.expense.reduce((result, number) => result + number)
+                    : "0"}
                 </p>
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />

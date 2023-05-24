@@ -3,7 +3,7 @@ import { URL } from "../../pages/_app";
 const TransferScreen = ({ onClose, setChange, username }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedReason, setSelectedReason] = useState("");
-  const [transection, setTransection] = useState({});
+  const [transaction, setTransaction] = useState({});
   const [error, setError] = useState(false);
 
   const handleSelectChange = (event) => {
@@ -16,21 +16,21 @@ const TransferScreen = ({ onClose, setChange, username }) => {
 
   useEffect(() => {
     if (selectedOption === "cashflow") {
-      setTransection((prevTransection) => ({
-        ...prevTransection,
+      setTransaction((prevTransaction) => ({
+        ...prevTransaction,
         dest_type: "Inter Bank",
       }));
     } else {
-      setTransection((prevTransection) => ({
-        ...prevTransection,
+      setTransaction((prevTransaction) => ({
+        ...prevTransaction,
         dest_type: "Local Bank",
       }));
     }
   }, [selectedOption]);
 
   useEffect(() => {
-    setTransection((prevTransection) => ({
-      ...prevTransection,
+    setTransaction((prevTransaction) => ({
+      ...prevTransaction,
       type: selectedReason,
     }));
   }, [selectedReason]);
@@ -38,19 +38,19 @@ const TransferScreen = ({ onClose, setChange, username }) => {
   async function handleFormSubmit(event) {
     event.preventDefault();
 
-    const updatedTransection = {
-      ...transection,
+    const updatedTransaction = {
+      ...transaction,
       mode: "Online transaction",
-      transection: "outgoing",
+      transaction: "outgoing",
       username: username,
     };
     try {
-      const response = await fetch(`${URL}/make_transection`, {
+      const response = await fetch(`${URL}/make_transaction`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedTransection),
+        body: JSON.stringify(updatedTransaction),
       });
 
       if (response.ok) {
@@ -104,16 +104,16 @@ const TransferScreen = ({ onClose, setChange, username }) => {
             placeholder={
               selectedOption == "cashflow" ? "Holder's Name" : "Account Number"
             }
-            value={transection.destination}
+            value={transaction.destination}
             onChange={(e) => {
               // setUsername(e.target.value);
-              setTransection((prevTransection) => ({
-                ...prevTransection,
+              setTransaction((prevTransaction) => ({
+                ...prevTransaction,
                 destination: e.target.value,
               }));
             }}
             className={`px-8 py-4 rounded-md text-white bg-bg border focus:border-cta focus:outline-none focus:text-cta ${
-              error || !transection.destination
+              error || !transaction.destination
                 ? "border-red-500 text-red-500"
                 : " border-white"
             }`}
@@ -124,15 +124,15 @@ const TransferScreen = ({ onClose, setChange, username }) => {
             type="number"
             name="ammount"
             placeholder="Amount"
-            value={transection.amount}
+            value={transaction.amount}
             onChange={(e) => {
-              setTransection((prevTransection) => ({
-                ...prevTransection,
+              setTransaction((prevTransaction) => ({
+                ...prevTransaction,
                 amount: e.target.value,
               }));
             }}
             className={`px-8 py-4 rounded-md text-white bg-bg border focus:border-cta focus:outline-none focus:text-cta ${
-              error || !transection.amount
+              error || !transaction.amount
                 ? "border-red-500 text-red-500"
                 : " border-white"
             }`}
