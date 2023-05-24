@@ -23,7 +23,7 @@ function Cards({ user }) {
               className=" absolute right-0 text-xl font-extrabold hover:cursor-pointer hover:text-gray-400 duration-150"
               onClick={() => setDetails()}
             >
-              x
+              X
             </p>
             <h2 className="text-xl font-bold">Card Details</h2>
             <Card
@@ -51,8 +51,12 @@ function Cards({ user }) {
                   ></div>
                 </div>
                 <div className="flex flex-row justify-between">
-                  <p>$ {details.limits.daily.spent}</p>
-                  <p>$ {details.limits.daily.total}</p>
+                  <p>
+                    {user.currency} {details.limits.daily.spent}
+                  </p>
+                  <p>
+                    {user.currency} {details.limits.daily.total}
+                  </p>
                 </div>
               </div>
               <div className="w-full mt-10">
@@ -70,8 +74,12 @@ function Cards({ user }) {
                   ></div>
                 </div>
                 <div className="flex flex-row justify-between">
-                  <p>$ {details.limits.monthly.spent}</p>
-                  <p>$ {details.limits.monthly.total}</p>
+                  <p>
+                    {user.currency} {details.limits.monthly.spent}
+                  </p>
+                  <p>
+                    {user.currency} {details.limits.monthly.total}
+                  </p>
                 </div>
               </div>
             </div>

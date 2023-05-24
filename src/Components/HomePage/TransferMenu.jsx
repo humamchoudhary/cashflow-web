@@ -74,7 +74,13 @@ const TransferScreen = ({ onClose, setChange, username }) => {
           onClose();
         }}
       ></div>
-      <div className=" p-5 rounded-lg flex flex-col gap-10 justify-between items-center z-20 bg-accent py-8 px-11">
+      <div className=" p-5 rounded-lg flex flex-col gap-10 justify-between items-center z-20 bg-accent py-8 px-11  relative">
+        <p
+          className=" absolute right-0 text-xl font-extrabold hover:cursor-pointer hover:text-gray-400 duration-150"
+          onClick={() => onClose()}
+        >
+          X
+        </p>
         <h2 className="text-xl font-bold">Transfer Money</h2>
         {error && (
           <p className="text-red-500">An error occurred. Please try again.</p>

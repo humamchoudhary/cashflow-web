@@ -13,8 +13,9 @@ import { useDispatch } from "react-redux";
 import { URL } from "../pages/_app";
 import TransferScreen from "../Components/HomePage/TransferMenu";
 import Cards from "../Components/HomePage/Card";
-import Router from "next/router";
 import dynamic from "next/dynamic";
+import QRpop from "../Components/HomePage/QRpop";
+
 const TopProgressBar = dynamic(
   () => import("react-top-loading-bar").then((module) => module.default),
   { ssr: false }
@@ -22,6 +23,7 @@ const TopProgressBar = dynamic(
 
 export default function Dashboard() {
   const [showTransferScreen, setShowTransferScreen] = useState(false);
+  const [showQR, setShowQRScreen] = useState(false);
   const [transaction, setTransaction] = useState({});
   const [progress, setProgress] = useState(0);
 
@@ -29,13 +31,21 @@ export default function Dashboard() {
     setShowTransferScreen(true);
     console.log(showTransferScreen);
   };
-  function handleSetTransaction(transfer_data) {
-    setTransaction(transfer_data);
-  }
   const handleCloseTransferScreen = () => {
     refreshTransactions();
     setShowTransferScreen(false);
   };
+  const handleQrClick = () => {
+    setShowQRScreen(true);
+  };
+  const handleQrClickClose = () => {
+    setShowQRScreen(false);
+  };
+
+  function handleSetTransaction(transfer_data) {
+    setTransaction(transfer_data);
+  }
+
   useEffect(() => {
     console.log(transaction);
   }, [transaction]);
@@ -174,7 +184,11 @@ export default function Dashboard() {
                 <BsSend />
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />
-              <div className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4">
+
+              <div
+                className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4"
+                onClick={handleQrClick}
+              >
                 <AiOutlineScan />
               </div>
               <div className="w-[1px] h-14 flex flex-col  bg-white" />
@@ -238,6 +252,7 @@ export default function Dashboard() {
           username={user.username}
         />
       )}
+      {showQR && <QRpop user={user} onClose={handleQrClickClose} />}
     </Layout>
   );
 }
