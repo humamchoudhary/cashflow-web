@@ -68,7 +68,12 @@ const TransferScreen = ({ onClose, setChange, username }) => {
   }
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center">
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-10 bg-accent opacity-50"></div>
+      <div
+        className="fixed top-0 left-0 right-0 bottom-0 z-10 bg-accent opacity-50"
+        onClick={() => {
+          onClose();
+        }}
+      ></div>
       <div className=" p-5 rounded-lg flex flex-col gap-10 justify-between items-center z-20 bg-accent py-8 px-11">
         <h2 className="text-xl font-bold">Transfer Money</h2>
         {error && (

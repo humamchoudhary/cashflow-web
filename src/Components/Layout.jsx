@@ -1,7 +1,10 @@
 import SideNav from "./SideNav";
-export default function Layout({ children, activePage, x }) {
+// import ProgressBar from "nextjs-progressbar";
+
+export default function Layout({ children, activePage }) {
   return (
     <>
+      {/* <ProgressBar /> */}
       <SideNav activePage={activePage} />
       {children}
     </>

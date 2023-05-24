@@ -13,9 +13,17 @@ import { useDispatch } from "react-redux";
 import { URL } from "../pages/_app";
 import TransferScreen from "../Components/HomePage/TransferMenu";
 import Cards from "../Components/HomePage/Card";
+import Router from "next/router";
+import dynamic from "next/dynamic";
+const TopProgressBar = dynamic(
+  () => import("react-top-loading-bar").then((module) => module.default),
+  { ssr: false }
+);
+
 export default function Dashboard() {
   const [showTransferScreen, setShowTransferScreen] = useState(false);
   const [transection, setTransection] = useState({});
+  const [progress, setProgress] = useState(0);
 
   const handleTransferButtonClick = () => {
     setShowTransferScreen(true);
@@ -91,7 +99,9 @@ export default function Dashboard() {
     }
   }, [user]);
   const refreshTransactions = async () => {
-    // console.log(`${URL}/login`);
+    // setIsLoading(true);
+    setProgress(30);
+
     const response = await fetch(`${URL}/login`, {
       method: "POST",
       headers: {
@@ -105,10 +115,14 @@ export default function Dashboard() {
     if (response.ok) {
       const userData = await response.json();
       setUser(userData);
+      setProgress(100);
+      router.push("/dashboard");
+      // setIsLoading(false);
     }
   };
   return (
     <Layout activePage="home">
+      <TopProgressBar progress={progress} color="#1eebec" height={3} />
       {user && user.username ? (
         <div className="flex flex-row gap-20 px-28 py-2 mt-8 mr-28">
           <div className="flex flex-col w-full">

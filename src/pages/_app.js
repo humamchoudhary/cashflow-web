@@ -3,14 +3,15 @@ import { Inter } from "next/font/google";
 import { Provider } from "react-redux";
 import store from "../data/user";
 // export const URL = "http://192.168.8.128:5000";
-export const URL = "http://10.4.72.174:5000";
+export const URL = "http://192.168.8.128:5000";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <main className={`${inter.variable} font-sans overflow-hidden h-screen`}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </main>
     </Provider>
   );

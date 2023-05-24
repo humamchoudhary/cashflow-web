@@ -16,7 +16,7 @@ const TransectionHistory = ({ user }) => {
             className="flex flex-row justify-between items-center bg-white bg-opacity-0 py-3 px-5 hover:bg-opacity-10 duration-200 rounded-md"
           >
             <div className="flex flex-row gap-3 items-center">
-              {transaction.transaction === "outgoing" ? (
+              {transaction.transection === "outgoing" ? (
                 <div className="bg-red-400 p-5 text-2xl rounded-full">
                   <BsArrowUpRight />
                 </div>
