@@ -1,5 +1,5 @@
 import { RiUser3Line } from "react-icons/ri";
-import { AiOutlineScan, AiOutlineWifi, AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineScan } from "react-icons/ai";
 import { CiWallet } from "react-icons/ci";
 import { BsCalendarEvent, BsSend } from "react-icons/bs";
 import Layout from "../Components/Layout";
@@ -190,10 +190,6 @@ export default function Dashboard() {
                 onClick={handleQrClick}
               >
                 <AiOutlineScan />
-              </div>
-              <div className="w-[1px] h-14 flex flex-col  bg-white" />
-              <div className="flex flex-row hover:text-gray-300 duration-300 hover:cursor-pointer px-9 py-4">
-                <CiWallet />
               </div>
             </div>
 
