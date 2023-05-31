@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { URL } from "../pages/_app";
+  
 
 export default function Signup() {
   const router = useRouter();

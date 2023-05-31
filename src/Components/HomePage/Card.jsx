@@ -95,10 +95,6 @@ function Cards({ user }) {
           clickable={true}
         />
       ))}
-      <div className=" bg-gray-300 bg-opacity-20 hover:bg-opacity-30 duration-300 hover:cursor-pointer flex flex-col w-[314px] h-[181px] rounded-2xl py-5 px-8  justify-center items-center">
-        <AiOutlinePlus className="text-5xl text-white" />
-        <p>Add a Card</p>
-      </div>
     </div>
   );
 }
