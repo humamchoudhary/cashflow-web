@@ -219,12 +219,14 @@ function SavingsMenu({ username, closeSaving }) {
         body: JSON.stringify(updatedTransaction),
       });
 
-      if (response.ok) {
+      if (response.status == 200) {
         const ret = await response.json();
         console.log(ret);
         if (ret.success) {
           closeSaving();
-        } 
+        }
+      } else {
+        setError(true);
       }
     } catch (e) {
       setError(true);
@@ -235,7 +237,7 @@ function SavingsMenu({ username, closeSaving }) {
       <div
         className="fixed top-0 left-0 right-0 bottom-0 z-20 bg-accent opacity-50"
         onClick={() => {
-          onClose();
+          closeSaving();
         }}
       ></div>
       <div className=" p-5 rounded-lg flex flex-col gap-10 justify-between items-center z-20 bg-accent py-8 px-11  relative">
@@ -246,6 +248,9 @@ function SavingsMenu({ username, closeSaving }) {
           X
         </p>
         <h2 className="text-xl font-bold">Transfer Money</h2>
+        {error && (
+          <p className="text-red-500">An error occurred. Please try again.</p>
+        )}
 
         <form action="" className="flex flex-col gap-5">
           <input

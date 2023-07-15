@@ -15,6 +15,7 @@ import TransferScreen from "../Components/HomePage/TransferMenu";
 import Cards from "../Components/HomePage/Card";
 import dynamic from "next/dynamic";
 import QRpop from "../Components/HomePage/QRpop";
+import Moment from "react-moment";
 
 const TopProgressBar = dynamic(
   () => import("react-top-loading-bar").then((module) => module.default),
@@ -53,6 +54,8 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(useSelector((state) => state.user));
+  const [currentDate, setCurrentDate] = useState(new Date());
+
   const [data, setData] = useState({
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -150,7 +153,7 @@ export default function Dashboard() {
               <div className="flex flex-row gap-6 justify-center items-center">
                 <div className="flex flex-col gap-2 justify-center items-end">
                   <h1 className="font-bold text-3xl">
-                    {user.date} {user.month}, {user.year}
+                    {currentDate.toDateString()}
                   </h1>
                   <p>{user.day}</p>
                 </div>
